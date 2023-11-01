@@ -4,6 +4,14 @@ const cors = require('cors');
 const app = express();
 const port = 8383;
 
+// Set up rate limiter
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+	windowMs: 1*1000, // 1 second
+	max: 50,
+})
+app.use(limiter);
+
 // CORS required else network error is thrown
 const allowedOrigins = ['http://localhost:5173']
 const corsOptions = {
