@@ -14,7 +14,7 @@ export const fetchData = async (req, res) => {
 			}
 		};
 		let apiData = await fetch(url, options);
-		if(!apiData.ok) { throw new Error("API response not OK") }
+		// if(!apiData.ok) { throw new Error("API response not OK") }
 		let json = await apiData.json()
 		// console.log(json)
 		for(let i = 0; i < json.results.length; i++) {
@@ -83,6 +83,7 @@ export const fetchData = async (req, res) => {
 				}
 			}
 		}
+		console.log(json)
 		return json
 	} catch (error) {
 		console.error(error);
