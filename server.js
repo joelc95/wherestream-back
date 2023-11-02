@@ -4,6 +4,9 @@ const cors = require('cors');
 const app = express();
 const port = 8383;
 
+// Enable trust proxy
+app.set('trust proxy', true);
+
 // Set up rate limiter
 const RateLimit = require("express-rate-limit");
 const limiter = RateLimit({
@@ -13,13 +16,13 @@ const limiter = RateLimit({
 app.use(limiter);
 
 // CORS required else network error is thrown
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = ['http://localhost:5173', 'https://joelc95.github.io']
 const corsOptions = {
 	origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error(`No requests from ${origin} allowed by CORS`));
     }
   },
 }
