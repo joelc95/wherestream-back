@@ -13,6 +13,7 @@ export const fetchData = async (url) => {
 			}
 		};
 		let apiData = await fetch(url, options);
+		if(!apiData.ok) { throw new Error("API response not OK") }
 		let json = await apiData.json()
 		// console.log(json)
 		for(let i = 0; i < json.results.length; i++) {
