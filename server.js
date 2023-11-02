@@ -7,11 +7,23 @@ const port = 8383;
 // Enable trust proxy
 app.set('trust proxy', true);
 
+// Define custom function to get the client's IP address
+const getClientIp = (req) => {
+	// Check for X-Forwarded-For header
+	if(req.headers['x-forwarded-for']) {
+		// Split the header to get client's IP
+		return req.headers['x-forwarded-for'].split(',')[0];
+	}
+	// If header not present, use remote address
+	return req.connection.remoteAddress;
+}
+
 // Set up rate limiter
 const RateLimit = require("express-rate-limit");
 const limiter = RateLimit({
 	windowMs: 1*1000, // 1 second
-	max: 50,
+	max: 50, // Limit each unique IP to 50 reqs per second
+	skip: (req) => getClientIp(req) // Use function to get IP
 })
 app.use(limiter);
 
