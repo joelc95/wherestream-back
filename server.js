@@ -46,8 +46,7 @@ app.use(cors(corsOptions))
 app.get('/:inputType/:inputTitle', async (req, res) => {
 	// Private token API function call
 	try {
-		let url = `https://api.themoviedb.org/3/search/${req.params.inputType}?query=${req.params.inputTitle}&include_adult=false&language=en-US&page=1`;
-		let json = await fetchData(url)
+		let json = await fetchData(req, res)
 		res.send(json)
 	} catch (error) {
 		console.error(error)

@@ -3,8 +3,9 @@ import dotenv from 'dotenv';
 import fetch from 'node-fetch';
 dotenv.config()
 
-export const fetchData = async (url) => {
+export const fetchData = async (req, res) => {
 	try {
+		let url = `https://api.themoviedb.org/3/search/${req.params.inputType}?query=${req.params.inputTitle}&include_adult=false&language=en-US&page=1`;
 		const options = {
 			method: 'GET',
 			headers: {
