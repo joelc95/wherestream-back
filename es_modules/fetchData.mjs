@@ -6,6 +6,7 @@ dotenv.config()
 export const fetchData = async (req, res) => {
 	try {
 		let url = `https://api.themoviedb.org/3/search/${req.params.inputType}?query=${req.params.inputTitle}&include_adult=false&language=en-US&page=1`;
+		console.log('url', url)
 		const options = {
 			method: 'GET',
 			headers: {
@@ -14,8 +15,10 @@ export const fetchData = async (req, res) => {
 			}
 		};
 		let apiData = await fetch(url, options);
+		console.log('apiData', apiData)
 		// if(!apiData.ok) { throw new Error("API response not OK") }
 		let json = await apiData.json()
+		console.log('json', json)
 		// console.log(json)
 		for(let i = 0; i < json.results.length; i++) {
 			json.results[i].netflix = []
