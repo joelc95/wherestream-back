@@ -1,9 +1,9 @@
 require('dotenv').config();
+import fetch from 'node-fetch';
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 8383;
-const fetch = require('node-fetch')
 
 // Enable trust proxy
 app.set('trust proxy', true);
